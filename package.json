@@ -1,0 +1,58 @@
+{
+  "name": "apollo-server-ts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "build": "rimraf dist && tsc -p tsconfig.build.json",
+    "format": "prettier --write \"src/**/*.ts\"",
+    "start": "ts-node -r tsconfig-paths/register src/server.ts",
+    "start:dev": "tsc-watch -p tsconfig.build.json --onSuccess \"node dist/server.js\"",
+    "start:debug": "tsc-watch -p tsconfig.build.json --onSuccess \"node --inspect-brk dist/server.js\"",
+    "start:prod": "node dist/server.js",
+    "lint": "tslint -c ./tslint.json -p ./tsconfig.json",
+    "lint:fix": "npm run lint --fix",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json"
+  },
+  "dependencies": {
+    "@apollo/federation": "^0.10.2",
+    "@apollo/gateway": "^0.10.7",
+    "apollo-server": "^2.9.6",
+    "graphql": "^14.5.8",
+    "graphql-tag": "^2.10.1",
+    "reflect-metadata": "^0.1.13",
+    "tsc-watch": "^4.0.0",
+    "type-graphql": "^0.17.5"
+  },
+  "devDependencies": {
+    "@types/graphql": "^14.5.0",
+    "@types/node": "^12.11.1",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "rimraf": "^3.0.0",
+    "ts-jest": "^24.1.0",
+    "ts-node": "^8.4.1",
+    "tsconfig-paths": "^3.9.0",
+    "tslint": "^5.20.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.6.4"
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "src",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  }
+}
