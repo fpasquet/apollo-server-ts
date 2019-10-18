@@ -22,8 +22,11 @@
     "@apollo/federation": "^0.10.2",
     "@apollo/gateway": "^0.10.7",
     "apollo-server": "^2.9.6",
+    "class-transformer": "^0.2.3",
+    "class-validator": "^0.10.2",
     "graphql": "^14.5.8",
     "graphql-tag": "^2.10.1",
+    "lodash": "^4.17.15",
     "reflect-metadata": "^0.1.13",
     "tsc-watch": "^4.0.0",
     "type-graphql": "^0.17.5"
