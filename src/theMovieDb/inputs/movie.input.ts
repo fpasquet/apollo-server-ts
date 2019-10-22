@@ -1,19 +1,21 @@
 
-
 import { InputType, Field } from 'type-graphql';
 import { MaxLength, Length } from 'class-validator';
-import { Recipe } from '../types/recipe.type';
+import { Movie } from '../types/movie.type';
 
 @InputType()
-export class RecipeInput implements Partial<Recipe> {
+export class MovieInput implements Partial<Movie> {
+    @Field()
+    releaseDate: Date;
+
     @Field()
     @MaxLength(30)
     title: string;
 
     @Field({ nullable: true })
     @Length(30, 255)
-    description?: string;
+    summary?: string;
 
-    @Field(type => [String])
-    ingredients: string[];
+    @Field(type => String)
+    posterPath: string;
 }

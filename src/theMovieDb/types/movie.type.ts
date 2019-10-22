@@ -1,26 +1,29 @@
 import { ObjectType, Field, ID, Int, Float, Authorized } from 'type-graphql';
 
-@ObjectType({ description: 'Object representing cooking recipe' })
-export class Recipe {
-    @Field()
-    creationDate: Date;
-
+@ObjectType({ description: 'Object representing movie' })
+export class Movie {
     @Field(type => ID)
+    id: number;
+
+    @Field()
+    releaseDate: Date;
+
+    @Field()
     slug: string;
 
     @Field()
     title: string;
 
-    @Field(type => String, { nullable: true, deprecationReason: 'Use `description` field instead' })
-    get specification(): string | undefined {
-        return this.description;
+    @Field(type => String, { nullable: true, deprecationReason: 'Use `summary` field instead' })
+    get overview(): string | undefined {
+        return this.summary;
     }
 
-    @Field({ nullable: true, description: 'The recipe description with preparation info' })
-    description?: string;
+    @Field({ nullable: true, description: 'The movie summary' })
+    summary?: string;
 
-    @Field(type => [String])
-    ingredients: string[];
+    @Field(type => String, { nullable: true })
+    posterPath?: string;
 
     @Field(type => [Int])
     ratings: number[];

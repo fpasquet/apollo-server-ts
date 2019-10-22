@@ -1,8 +1,8 @@
 import { AuthChecker } from 'type-graphql';
 
-import { Context } from '../interfaces/context.interface';
+import { GraphQLContext } from '../graphql.context';
 
-export const authChecker: AuthChecker<Context> = ({ context: { user } }, roles) => {
+export const authChecker: AuthChecker<GraphQLContext> = ({ context: { user } }, roles) => {
     if (roles.length === 0) {
         // if `@Authorized()`, check only is user exist
         return user !== undefined;

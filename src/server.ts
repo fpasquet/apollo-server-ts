@@ -2,16 +2,19 @@ import 'reflect-metadata';
 import { ApolloServer } from 'apollo-server';
 import { buildSchema } from 'type-graphql';
 
-import { RecipeResolver } from './example/resolvers/recipe.resolver';
-import { authChecker } from './example/security/authChecker';
-import { Context } from './example/interfaces/context.interface';
+import { MovieMockDataSource } from './theMovieDb/dataSources/MovieMock.dataSource';
+import { MovieResolver } from './theMovieDb/resolvers/movie.resolver';
+import { AuthObjectResolver } from './auth/resolvers/authObject.resolver';
+
+import { GraphQLContext } from './graphql.context';
+import { authChecker } from './auth/authChecker';
 
 const PORT = process.env.PORT || 4000;
 
 const bootstrap = async () => {
 
   const schema = await buildSchema({
-    resolvers: [RecipeResolver],
+    resolvers: [MovieResolver, AuthObjectResolver],
     validate: true,
     authChecker,
     authMode: 'null',
@@ -20,14 +23,21 @@ const bootstrap = async () => {
   const server = new ApolloServer({
     schema,
     playground: true,
+    dataSources: () => ({
+      movieMockDataSource: new MovieMockDataSource()
+    }),
     context: ({ req }) => {
-      const ctx: Context = {
+      const roles = [];
+      if (req.headers.role) {
+        roles.push(req.headers.role);
+      }
+      const ctx: GraphQLContext = {
         // create mocked user in context
         // in real app you would be mapping user from `req.user` or sth
         user: {
           id: 1,
           name: 'Wilson',
-          roles: ['USER'],
+          roles,
         },
       };
       return ctx;
